@@ -3,6 +3,7 @@ import { FC, useCallback, useState } from 'react';
 import FormGroup from '../../components/FormGroup';
 import InputField from '../../components/InputField';
 import InputMasked from '../../components/InputMasked';
+import { useOutside } from '../../hooks/useOutside';
 import { formValidation } from '../../utils/formValidation';
 import {
   ButtonBack,
@@ -28,7 +29,10 @@ interface FormDirtyValuesProps {
 
 const FormPayment: FC = () => {
   const router = useRouter();
+  const { ref, isShow, setIsShow } = useOutside(false);
+  const [isError, setIsError] = useState<string | null>(null);
   const [formErrors, setFormErrors] = useState<FormErrorsProps>({});
+
   const [formDirty, setFormDirty] = useState<FormDirtyValuesProps>({
     phoneNumber: false,
     amount: false,
@@ -85,20 +89,28 @@ const FormPayment: FC = () => {
         })
       );
 
+      const config = {
+        method: 'POST',
+        body: JSON.stringify({ formValues }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
       if (JSON.stringify(formErrors) === '{}') {
         console.log('SUBMIT');
         try {
-          const fetchRes = await fetch(`${process.env.API_URL}/api/operators`, {
-            method: 'POST',
-            body: JSON.stringify({ formValues }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
+          const fetchRes = await fetch(
+            `${process.env.API_URL}/api/operators`,
+            config
+          );
           const fetchData = await fetchRes.json();
           console.log(fetchData);
+          setIsShow(true);
+          setIsError(null);
         } catch (error) {
-          throw new Error(error);
+          setIsShow(false);
+          setIsError('Ошибка при отправке данных');
         }
       }
     },
@@ -135,8 +147,13 @@ const FormPayment: FC = () => {
         autoComplete="off"
         required
         label="Номер телефона">
-        {formErrors.phoneNumber && formDirty.phoneNumber && (
-          <CaptionError>{formErrors.phoneNumber}</CaptionError>
+        {isError ? (
+          <CaptionError>{isError}</CaptionError>
+        ) : (
+          formErrors.phoneNumber &&
+          formDirty.phoneNumber && (
+            <CaptionError>{formErrors.phoneNumber}</CaptionError>
+          )
         )}
       </InputMasked>
 

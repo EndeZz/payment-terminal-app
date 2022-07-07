@@ -115,37 +115,39 @@ const NewOperator: FC<newOperatorProps> = () => {
     [formValues]
   );
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
 
-    const config = {
-      method: 'POST',
-      body: JSON.stringify({
-        title: formValues.title,
-        logo: '/images/default_logo.png',
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
+      const config = {
+        method: 'POST',
+        body: JSON.stringify({
+          title: formValues.title,
+          logo: '/images/default_logo.png',
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
 
-    if (JSON.stringify(formValues) !== '{}') {
-      try {
-        const fetchRes = await fetch(
-          `${process.env.API_URL}/api/operators`,
-          config
-        );
-        const fetchData = await fetchRes.json();
-        console.log(fetchData);
-        setIsShow(true);
-        setIsError(null);
-      } catch (error) {
-        setIsShow(false);
-        setIsError('Ошибка при отправке данных');
+      if (JSON.stringify(formValues) !== '{}') {
+        try {
+          const fetchRes = await fetch(
+            `${process.env.API_URL}/api/operators`,
+            config
+          );
+          const fetchData = await fetchRes.json();
+          console.log(fetchData);
+          setIsShow(true);
+          setIsError(null);
+        } catch (error) {
+          setIsShow(false);
+          setIsError('Ошибка при отправке данных');
+        }
       }
-    }
-  };
-
+    },
+    [formValues]
+  );
   return (
     <Container>
       <Head>
