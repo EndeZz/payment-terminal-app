@@ -53,6 +53,7 @@ const Operator: FC<OperatorProps> = ({ operator }) => {
           </OperatorLogo>
           <OperatorTitle>{operator.title}</OperatorTitle>
         </OperatorWrapper>
+
         <FormPayment />
       </Main>
     </Container>

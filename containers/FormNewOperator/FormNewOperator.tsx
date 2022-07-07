@@ -3,13 +3,11 @@ import { FC, useCallback, useEffect, useState } from 'react';
 import FormGroup from '../../components/FormGroup';
 import InputField from '../../components/InputField';
 import { useOutside } from '../../hooks/useOutside';
+import SuccessBox from '../SuccessBox/SuccessBox';
 import {
   ButtonBack,
   ButtonSubmit,
   ButtonWrapper,
-  CaptionSuccess,
-  SuccessBox,
-  TitleSuccess,
 } from './FormNewOperator.styled';
 
 interface FormValuesProps {
@@ -96,14 +94,13 @@ const FormNewOperator: FC = () => {
           </ButtonBack>
           <ButtonSubmit type="submit">Добавить оператора</ButtonSubmit>
         </ButtonWrapper>
-        {isShow && (
-          <SuccessBox ref={ref}>
-            <TitleSuccess>Оператор успешно добавлен</TitleSuccess>
-            <CaptionSuccess>
-              Возврат на главный экран через 3 секунды
-            </CaptionSuccess>
-          </SuccessBox>
-        )}
+
+        <SuccessBox
+          propsRef={ref}
+          isShow={isShow}
+          title="Оператор успешно добавлен"
+          caption="Возврат на главный экран через 3 секунды"
+        />
       </FormGroup>
       {isError && <span>{isError}</span>}
     </>

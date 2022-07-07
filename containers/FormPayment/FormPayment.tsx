@@ -5,6 +5,7 @@ import InputField from '../../components/InputField';
 import InputMasked from '../../components/InputMasked';
 import { useOutside } from '../../hooks/useOutside';
 import { formValidation } from '../../utils/formValidation';
+import SuccessBox from '../SuccessBox/SuccessBox';
 import {
   ButtonBack,
   ButtonSubmit,
@@ -163,6 +164,13 @@ const FormPayment: FC = () => {
         </ButtonBack>
         <ButtonSubmit type="submit">Пополнить баланс</ButtonSubmit>
       </ButtonWrapper>
+
+      <SuccessBox
+          propsRef={ref}
+          isShow={isShow}
+          title="Счет успешно пополнен!"
+          caption="Возврат на главный экран через 3 секунды"
+        />
     </FormGroup>
   );
 };
