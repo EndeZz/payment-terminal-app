@@ -21,8 +21,9 @@ const Main = styled.main`
   width: 100%;
   max-width: 412px;
   height: max-content;
-  max-height: 412px;
-  overflow: auto;
+  max-height: 430px;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 export { Container, Main };
