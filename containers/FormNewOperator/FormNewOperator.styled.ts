@@ -2,9 +2,15 @@ import styled from 'styled-components';
 import Button from '../../components/Button';
 
 const ButtonWrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   justify-content: space-between;
-  align-items: center;
+
+  @media only screen and (max-width: ${({ theme }) => theme.media.md}) {
+    display: grid;
+    grid-template-columns: minmax(100%, 1fr);
+    gap: 10px;
+  }
 `;
 
 const ButtonSubmit = styled(Button)`
@@ -13,6 +19,8 @@ const ButtonSubmit = styled(Button)`
   background-color: ${({ theme }) => theme.colors.primary};
   border: 1px solid ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.light};
+  grid-column: 2 / 4;
+  justify-self: end;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.primaryHover};
@@ -25,6 +33,13 @@ const ButtonSubmit = styled(Button)`
     border-color: ${({ theme }) => theme.colors.primaryActive};
     color: ${({ theme }) => theme.colors.light};
     transform: translateY(2px);
+  }
+
+  @media only screen and (max-width: ${({ theme }) => theme.media.md}) {
+    width: 100%;
+    justify-content: center;
+    grid-column: 1;
+    grid-row: 1;
   }
 `;
 
@@ -42,10 +57,17 @@ const ButtonBack = styled(Button)`
     border-color: ${({ theme }) => theme.colors.primaryActive};
     transform: translateY(2px);
   }
+
+  @media only screen and (max-width: ${({ theme }) => theme.media.md}) {
+    width: 100%;
+    justify-content: center;
+    grid-column: 1;
+    grid-row: 2;
+  }
 `;
 
 const SuccessBox = styled.div`
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);

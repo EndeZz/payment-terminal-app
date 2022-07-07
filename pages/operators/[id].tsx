@@ -12,13 +12,12 @@ const OperatorLogo = styled.div`
   overflow: hidden;
   height: 40px;
   width: 40px;
+  margin-right: 12px;
 `;
 
 const OperatorWrapper = styled.div`
   display: flex;
-  gap: 12px;
   align-items: center;
-  margin-bottom: 20px;
   padding-bottom: 12px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray100};
 `;

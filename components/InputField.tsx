@@ -10,7 +10,7 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-  height: 50px;
+  height: 48px;
   width: 100%;
   padding: 17px;
   border: 1px solid ${({ theme }) => theme.colors.gray100};

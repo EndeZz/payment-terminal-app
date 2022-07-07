@@ -14,5 +14,11 @@ declare module 'styled-components' {
       bg: string;
       light: string;
     };
+    media: {
+      xl: string;
+      lg: string;
+      md: string;
+      sm: string;
+    };
   }
 }

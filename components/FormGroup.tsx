@@ -4,12 +4,10 @@ import styled from 'styled-components';
 
 const Form = styled.form`
   position: relative;
-
   display: flex;
   flex-direction: column;
   width: 100%;
-
-  grid-row-gap: 30px;
+  grid-row-gap: 20px;
 
   & input {
     &::placeholder {

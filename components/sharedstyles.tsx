@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-  padding: 0 0.5rem;
+  padding: 0 10px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -12,8 +12,9 @@ const Container = styled.div`
 `;
 
 const Main = styled.main`
-  display: grid;
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   background-color: ${({ theme }) => theme.colors.light};
   border-radius: 15px;
   border: 2px solid ${({ theme }) => theme.colors.gray100};
@@ -21,9 +22,8 @@ const Main = styled.main`
   width: 100%;
   max-width: 412px;
   height: max-content;
-  max-height: 430px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  max-height: 440px;
+  overflow: hidden;
 `;
 
 export { Container, Main };

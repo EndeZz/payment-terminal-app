@@ -6,6 +6,10 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-size: 10px;
     height: 100%;
+
+    @media only screen and (max-width: ${({ theme }) => theme.media.sm}) {
+      font-size: 8px;
+    }
   }
 
   *,

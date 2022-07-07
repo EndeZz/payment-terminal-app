@@ -16,6 +16,12 @@ const theme: DefaultTheme = {
     bg: '#ede6f7',
     light: '#fff',
   },
+  media: {
+    xl: '1200px',
+    lg: '988px',
+    md: '768px',
+    sm: '540px',
+  },
 };
 
 const App = ({ Component, pageProps }: AppProps) => {

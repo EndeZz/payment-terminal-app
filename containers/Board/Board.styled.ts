@@ -26,7 +26,7 @@ const BoardLink = styled.a`
   align-items: center;
   gap: 20px;
   border-radius: 15px;
-  padding: 10px;
+  padding: 12px;
   border: 2px solid transparent;
 
   &:hover {
