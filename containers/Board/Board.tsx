@@ -27,9 +27,9 @@ const Board: FC<BoardProps> = ({ operators }) => (
                   <Image
                     src={item.logo}
                     alt={item.title}
-                    width={80}
-                    height={80}
-                    objectFit="cover"
+                    width={60}
+                    height={60}
+                    layout="responsive"
                   />
                 </BoardImg>
                 <BoardTitle>{item.title}</BoardTitle>

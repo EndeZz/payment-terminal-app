@@ -17,17 +17,19 @@ const BoardItem = styled.li``;
 const BoardImg = styled.div`
   border-radius: 50%;
   overflow: hidden;
-  height: 60px;
-  width: 60px;
+  height: 6rem;
+  width: 6rem;
+  margin-right: 12px;
 `;
 
 const BoardLink = styled.a`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   align-items: center;
-  gap: 20px;
   border-radius: 15px;
   padding: 12px;
   border: 2px solid transparent;
+  width: 100%;
 
   &:hover {
     border: 2px solid ${({ theme }) => theme.colors.primary};
@@ -38,13 +40,7 @@ const BoardLink = styled.a`
 const BoardTitle = styled.h2`
   font-size: 2rem;
   font-weight: 500;
+  grid-column: 2 / 4;
 `;
 
-export {
-  BoardWrapper,
-  BoardList,
-  BoardItem,
-  BoardImg,
-  BoardLink,
-  BoardTitle,
-};
+export { BoardWrapper, BoardList, BoardItem, BoardImg, BoardLink, BoardTitle };

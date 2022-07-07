@@ -10,21 +10,24 @@ import { IOperators } from '../../utils/types/IOperators';
 const OperatorLogo = styled.div`
   border-radius: 50%;
   overflow: hidden;
-  height: 40px;
-  width: 40px;
+  height: 4rem;
+  width: 4rem;
   margin-right: 12px;
 `;
 
 const OperatorWrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
   align-items: center;
   padding-bottom: 12px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray100};
+  width: 100%;
 `;
 
 const OperatorTitle = styled.h2`
   font-size: 2rem;
   font-weight: 500;
+  grid-column: 2 / 4;
 `;
 
 interface OperatorProps {
@@ -45,11 +48,11 @@ const Operator: FC<OperatorProps> = ({ operator }) => {
               alt={operator.title}
               width={40}
               height={40}
+              layout="responsive"
             />
           </OperatorLogo>
           <OperatorTitle>{operator.title}</OperatorTitle>
         </OperatorWrapper>
-
         <FormPayment />
       </Main>
     </Container>
