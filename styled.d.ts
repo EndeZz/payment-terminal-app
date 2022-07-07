@@ -1,4 +1,4 @@
-import 'styled-components'
+import 'styled-components';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
@@ -6,11 +6,13 @@ declare module 'styled-components' {
       primary: string;
       primaryHover: string;
       primaryActive: string;
+      success: string;
+      error: string;
       gray100: string;
       gray200: string;
       txt: string;
       bg: string;
       light: string;
-    }
+    };
   }
 }

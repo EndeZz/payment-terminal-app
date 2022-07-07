@@ -11,6 +11,17 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       }
       break;
 
+    case 'POST':
+      const { title, logo } = req.body;
+      const newOperator = {
+        id: Date.now(),
+        title: title,
+        logo: logo,
+      };
+      mocks.push(newOperator);
+      res.status(201).json(newOperator);
+      break;
+
     default:
       res.status(405).end(`Method ${req.method} Not Allowed`);
       break;

@@ -1,9 +1,28 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { FC } from 'react';
+import styled from 'styled-components';
+import Anchor from '../components/Anchor';
 import { Container, Main } from '../components/sharedstyles';
 import Board from '../containers/Board/Board';
 import { IOperators } from '../utils/types/IOperators';
+
+const ButtonAdd = styled(Anchor)`
+  border-radius: 25px;
+  border: 1px solid ${({ theme }) => theme.colors.primary};
+  padding: 12px 15px;
+  color: ${({ theme }) => theme.colors.txt};
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.primaryHover};
+    color: ${({ theme }) => theme.colors.primary};
+  }
+
+  &:active {
+    border-color: ${({ theme }) => theme.colors.primaryActive};
+    transform: translateY(2px);
+  }
+`;
 
 interface OperatorsProps {
   operators: IOperators[];
@@ -17,6 +36,7 @@ const Home: FC<OperatorsProps> = ({ operators }) => {
       </Head>
       <Main>
         <Board operators={operators}></Board>
+        <ButtonAdd href="/actions/add_operator">Добавить оператора</ButtonAdd>
       </Main>
     </Container>
   );
