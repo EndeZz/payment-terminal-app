@@ -49,7 +49,7 @@ const FormNewOperator: FC = () => {
         method: 'POST',
         body: JSON.stringify({
           title: formValues.title,
-          logo: '/images/default_logo.png',
+          logo: '/default-logo.png',
         }),
         headers: {
           'Content-Type': 'application/json',
