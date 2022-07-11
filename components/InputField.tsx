@@ -21,6 +21,14 @@ const Input = styled.input`
   white-space: nowrap;
   overflow: hidden;
   font-size: 1.6rem;
+
+  :hover {
+    border: 1px solid ${({ theme }) => theme.colors.gray200};
+  }
+
+  :focus {
+    border: 1px solid ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 interface InputFieldProps {
