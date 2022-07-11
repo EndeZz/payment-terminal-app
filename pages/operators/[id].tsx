@@ -37,10 +37,11 @@ interface OperatorProps {
 }
 
 const Operator: FC<OperatorProps> = ({ operator }) => {
+  const titleOnPage = `Пополнение баланса: ${operator.title}`;
   return (
     <Container>
       <Head>
-        <title>Пополнение баланса: {operator.title}</title>
+        <title>{titleOnPage}</title>
       </Head>
       <Main>
         <OperatorWrapper>

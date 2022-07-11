@@ -5,16 +5,21 @@ interface IAmount {
 
 export const formValidation = (value: IFormPaymentValues) => {
   const errors: IAmount = {};
+  const correctAmount: number = +value.amount.replace(/^0+/, '');
 
-  if (!String(value.amount).length) {
+  if (!String(correctAmount).length) {
     errors.amount = 'Поле обязательно для заполнения';
-  } else if (String(value.amount).length > 4 || +value.amount > 1000) {
+  } else if (
+    String(correctAmount).length > 4 ||
+    +correctAmount > 1000 ||
+    +correctAmount <= 0
+  ) {
     errors.amount = 'Допустимо пополнение на сумму от 1 до 1000 ₽';
-  } else if (isNaN(+value.amount)) {
+  } else if (isNaN(correctAmount)) {
     errors.amount = 'Некорректная сумма';
   }
 
-  if (!String(value.phoneNumber).length) {
+  if (!value.phoneNumber.length) {
     errors.phoneNumber = 'Поле обязательно для заполнения';
   }
   return errors;

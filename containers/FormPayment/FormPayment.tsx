@@ -91,7 +91,7 @@ const FormPayment: FC = () => {
         method: 'POST',
         body: JSON.stringify({
           phoneNumber: formValues.phoneNumber,
-          amount: formValues.amount,
+          amount: formValues.amount.replace(/^0+/, ''),
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -100,7 +100,6 @@ const FormPayment: FC = () => {
 
       if (JSON.stringify(formErrors) === '{}') {
         try {
-          console.log('SUBMIT');
           await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/payment`, config);
           setIsShow(true);
           setIsSuccess(true);
