@@ -1,11 +1,16 @@
 import { useRouter } from 'next/router';
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import FormGroup from '../../components/FormGroup';
 import InputField from '../../components/InputField';
 import InputMasked from '../../components/InputMasked';
 import { useOutside } from '../../hooks/useOutside';
 import { formValidation } from '../../utils/formValidation';
 import SuccessBox from '../SuccessBox/SuccessBox';
+import {
+  IFormPaymentValues,
+  IFormPaymentDirtyValues,
+  IFormErrors,
+} from '../../utils/types/IForms';
 import {
   ButtonBack,
   ButtonSubmit,
@@ -14,34 +19,26 @@ import {
   CaptionError,
 } from './FormPayment.styled';
 
-interface FormErrorsProps {
-  [key: string]: string;
-}
-
-export interface FormValuesProps {
-  phoneNumber: string;
-  amount: string;
-}
-
-interface FormDirtyValuesProps {
-  phoneNumber: boolean;
-  amount: boolean;
-}
-
 const FormPayment: FC = () => {
   const router = useRouter();
   const { ref, isShow, setIsShow } = useOutside(false);
-  const [isError, setIsError] = useState<string | null>(null);
-  const [formErrors, setFormErrors] = useState<FormErrorsProps>({});
-
-  const [formDirty, setFormDirty] = useState<FormDirtyValuesProps>({
+  const [formErrors, setFormErrors] = useState<IFormErrors>({});
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
+  const [formDirty, setFormDirty] = useState<IFormPaymentDirtyValues>({
     phoneNumber: false,
     amount: false,
   });
-  const [formValues, setFormValues] = useState<FormValuesProps>({
+  const [formValues, setFormValues] = useState<IFormPaymentValues>({
     phoneNumber: '',
     amount: '',
   });
+
+  useEffect(() => {
+    if (isSuccess) {
+      setTimeout(() => goBack(), 3000);
+    }
+  }, [isSuccess]);
 
   const goBack = useCallback(() => {
     router.push('/');
@@ -92,26 +89,26 @@ const FormPayment: FC = () => {
 
       const config = {
         method: 'POST',
-        body: JSON.stringify({ formValues }),
+        body: JSON.stringify({
+          phoneNumber: formValues.phoneNumber,
+          amount: formValues.amount,
+        }),
         headers: {
           'Content-Type': 'application/json',
         },
       };
 
       if (JSON.stringify(formErrors) === '{}') {
-        console.log('SUBMIT');
         try {
-          const fetchRes = await fetch(
-            `${process.env.API_URL}/api/operators`,
-            config
-          );
-          const fetchData = await fetchRes.json();
-          console.log(fetchData);
+          console.log('SUBMIT');
+          await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/payment`, config);
           setIsShow(true);
-          setIsError(null);
+          setIsSuccess(true);
+          setErrorMessage(null);
         } catch (error) {
           setIsShow(false);
-          setIsError('Ошибка при отправке данных');
+          setIsSuccess(false);
+          setErrorMessage('Ошибка при отправке данных');
         }
       }
     },
@@ -148,8 +145,8 @@ const FormPayment: FC = () => {
         autoComplete="off"
         required
         label="Номер телефона">
-        {isError ? (
-          <CaptionError>{isError}</CaptionError>
+        {errorMessage ? (
+          <CaptionError>{errorMessage}</CaptionError>
         ) : (
           formErrors.phoneNumber &&
           formDirty.phoneNumber && (
@@ -165,12 +162,15 @@ const FormPayment: FC = () => {
         <ButtonSubmit type="submit">Пополнить баланс</ButtonSubmit>
       </ButtonWrapper>
 
-      <SuccessBox
+      {isShow && (
+        <SuccessBox
           propsRef={ref}
-          isShow={isShow}
           title="Счет успешно пополнен!"
           caption="Возврат на главный экран через 3 секунды"
         />
+      )}
+
+      {errorMessage && <CaptionError>{errorMessage}</CaptionError>}
     </FormGroup>
   );
 };

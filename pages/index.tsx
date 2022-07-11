@@ -24,27 +24,46 @@ const ButtonAdd = styled(Anchor)`
   }
 `;
 
+const ErrorMessage = styled.span`
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  transform: translateY(50px);
+  color: ${({ theme }) => theme.colors.error};
+`;
+
 interface OperatorsProps {
   operators: IOperators[];
 }
 
-const Home: FC<OperatorsProps> = ({ operators }) => {
-  return (
-    <Container>
-      <Head>
-        <title>Список мобильных операторов</title>
-      </Head>
-      <Main>
-        <Board operators={operators}></Board>
-        <ButtonAdd href="/actions/add_operator">Добавить оператора</ButtonAdd>
-      </Main>
-    </Container>
-  );
-};
+const Home: FC<OperatorsProps> = ({ operators }) => (
+  <Container>
+    <Head>
+      <title>Список мобильных операторов</title>
+    </Head>
+    <Main>
+      <>
+        {operators === null ? (
+          <ErrorMessage>Произошла непредвиденная ошибка</ErrorMessage>
+        ) : (
+          <>
+            <Board operators={operators}></Board>
+            <ButtonAdd href="/actions/add_operator">
+              Добавить оператора
+            </ButtonAdd>
+          </>
+        )}
+      </>
+    </Main>
+  </Container>
+);
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const fetchRes = await fetch(`${process.env.API_URL}/api/operators`);
+    const fetchRes = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/operators`
+    );
     const fetchData = await fetchRes.json();
 
     if (!fetchData) {

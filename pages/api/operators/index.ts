@@ -4,12 +4,14 @@ import { mocks } from '../../../mocks/mocks';
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'GET':
-      if (mocks.length > 0) {
-        res.status(200).json(mocks);
-      } else {
-        res.status(404).json({ message: `Операторы не найдены` });
+      const randomValue = Math.random();
+      if (randomValue <= 0.1) {
+        return res.status(503).end();
       }
-      break;
+      if (mocks.length <= 0) {
+        return res.status(404).end();
+      }
+      return res.status(200).json(mocks);
 
     case 'POST':
       const { title, logo } = req.body;
@@ -19,11 +21,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         logo: logo,
       };
       mocks.push(newOperator);
-      res.status(201).json(newOperator);
-      break;
+      return res.status(201).json(newOperator);
 
     default:
-      res.status(405).end(`Method ${req.method} Not Allowed`);
-      break;
+      return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

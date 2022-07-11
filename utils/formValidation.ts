@@ -1,10 +1,9 @@
-import { FormValuesProps } from "../containers/FormPayment/FormPayment";
-
+import { IFormPaymentValues } from './types/IForms';
 interface IAmount {
   [key: string]: string;
 }
 
-export const formValidation = (value: FormValuesProps) => {
+export const formValidation = (value: IFormPaymentValues) => {
   const errors: IAmount = {};
 
   if (!String(value.amount).length) {

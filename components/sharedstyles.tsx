@@ -20,6 +20,7 @@ const Main = styled.main`
   border: 2px solid ${({ theme }) => theme.colors.gray100};
   padding: 30px;
   width: 100%;
+  min-height: 200px;
   max-width: 412px;
   height: max-content;
   max-height: 440px;

@@ -5,6 +5,8 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { Container, Main } from '../../components/sharedstyles';
 import FormPayment from '../../containers/FormPayment/FormPayment';
+import { mocks } from '../../mocks/mocks';
+import { getOperatorById } from '../../utils/getOperatorById';
 import { IOperators } from '../../utils/types/IOperators';
 
 const OperatorLogo = styled.div`
@@ -61,10 +63,7 @@ const Operator: FC<OperatorProps> = ({ operator }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const fetchRes = await fetch(`${process.env.API_URL}/api/operators`);
-  const fetchData = await fetchRes.json();
-
-  const paths = fetchData.map(({ id }) => ({
+  const paths = mocks.map(({ id }) => ({
     params: {
       id: id.toString(),
     },
@@ -76,11 +75,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = (context) => {
   try {
     const { id } = context.params;
-    const fetchRes = await fetch(`${process.env.API_URL}/api/operators/${id}`);
-    const fetchData = await fetchRes.json();
+    const fetchData = getOperatorById(+id);
 
     if (!fetchData) {
       return {

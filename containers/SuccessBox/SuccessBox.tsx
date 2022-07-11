@@ -7,24 +7,20 @@ import {
 
 interface SuccessBoxProps {
   propsRef: React.RefObject<HTMLInputElement>;
-  isShow: boolean;
   title: string;
   caption?: string;
 }
 
 const SuccessBox: FC<SuccessBoxProps> = ({
   propsRef,
-  isShow,
   title,
   caption,
 }) => (
   <>
-    {isShow && (
-      <SuccessBoxWrapper ref={propsRef}>
-        <TitleSuccess>{title}</TitleSuccess>
-        {caption && <CaptionSuccess>{caption}</CaptionSuccess>}
-      </SuccessBoxWrapper>
-    )}
+    <SuccessBoxWrapper ref={propsRef}>
+      <TitleSuccess>{title}</TitleSuccess>
+      {caption && <CaptionSuccess>{caption}</CaptionSuccess>}
+    </SuccessBoxWrapper>
   </>
 );
 

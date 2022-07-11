@@ -1,19 +1,18 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { mocks } from '../../../mocks/mocks';
+import { getOperatorById } from '../../../utils/getOperatorById';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'GET':
-      const filteredValues = mocks.find((item) => item.id === +req.query.id);
-      if (filteredValues) {
-        res.status(200).json(filteredValues);
+      const { id } = req.query;
+      const currentOperator = getOperatorById(+id);
+      if (currentOperator) {
+        return res.status(200).json(currentOperator);
       } else {
-        res.status(404).json({ message: `Оператор не найден` });
+        return res.status(404).end();
       }
-      break;
 
     default:
-      res.status(405).end(`Method ${req.method} Not Allowed`);
-      break;
+      return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

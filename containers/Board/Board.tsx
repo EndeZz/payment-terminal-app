@@ -19,20 +19,19 @@ const Board: FC<BoardProps> = ({ operators }) => (
   <BoardWrapper>
     <BoardList>
       {operators &&
-        operators.map((item) => (
-          <BoardItem key={item.id}>
-            <Link href={`/operators/${item.id}`} passHref>
+        operators.map((operator) => (
+          <BoardItem key={operator.id}>
+            <Link href={`/operators/${operator.id}`} passHref>
               <BoardLink>
                 <BoardImg>
                   <Image
-                    src={item.logo}
-                    alt={item.title}
+                    src={operator.logo}
+                    alt={operator.title}
                     width={60}
                     height={60}
-                    layout="responsive"
                   />
                 </BoardImg>
-                <BoardTitle>{item.title}</BoardTitle>
+                <BoardTitle>{operator.title}</BoardTitle>
               </BoardLink>
             </Link>
           </BoardItem>

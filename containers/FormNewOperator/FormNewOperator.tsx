@@ -3,6 +3,8 @@ import { FC, useCallback, useEffect, useState } from 'react';
 import FormGroup from '../../components/FormGroup';
 import InputField from '../../components/InputField';
 import { useOutside } from '../../hooks/useOutside';
+import { IFormNewOperatorValues } from '../../utils/types/IForms';
+import { CaptionError } from '../FormPayment/FormPayment.styled';
 import SuccessBox from '../SuccessBox/SuccessBox';
 import {
   ButtonBack,
@@ -10,23 +12,20 @@ import {
   ButtonWrapper,
 } from './FormNewOperator.styled';
 
-interface FormValuesProps {
-  title: string;
-}
-
 const FormNewOperator: FC = () => {
   const router = useRouter();
   const { ref, isShow, setIsShow } = useOutside(false);
-  const [formValues, setFormValues] = useState<FormValuesProps>({ title: '' });
-  const [isError, setIsError] = useState<string | null>(null);
+  const [formValues, setFormValues] = useState<IFormNewOperatorValues>({
+    title: '',
+  });
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (isShow) {
-      setTimeout(() => {
-        goBack();
-      }, 3000);
+    if (isSuccess) {
+      setTimeout(() => goBack(), 3000);
     }
-  }, [isShow]);
+  }, [isSuccess]);
 
   const goBack = useCallback(() => {
     router.push('/');
@@ -59,17 +58,17 @@ const FormNewOperator: FC = () => {
 
       if (JSON.stringify(formValues) !== '{}') {
         try {
-          const fetchRes = await fetch(
-            `${process.env.API_URL}/api/operators`,
+          await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/operators`,
             config
           );
-          const fetchData = await fetchRes.json();
-          console.log(fetchData);
           setIsShow(true);
-          setIsError(null);
+          setIsSuccess(true);
+          setErrorMessage(null);
         } catch (error) {
           setIsShow(false);
-          setIsError('Ошибка при отправке данных');
+          setIsSuccess(false);
+          setErrorMessage('Ошибка при отправке данных');
         }
       }
     },
@@ -95,14 +94,16 @@ const FormNewOperator: FC = () => {
           <ButtonSubmit type="submit">Добавить оператора</ButtonSubmit>
         </ButtonWrapper>
 
-        <SuccessBox
-          propsRef={ref}
-          isShow={isShow}
-          title="Оператор успешно добавлен"
-          caption="Возврат на главный экран через 3 секунды"
-        />
+        {isShow && (
+          <SuccessBox
+            propsRef={ref}
+            title="Оператор успешно добавлен"
+            caption="Возврат на главный экран через 3 секунды"
+          />
+        )}
+
+        {errorMessage && <CaptionError>{errorMessage}</CaptionError>}
       </FormGroup>
-      {isError && <span>{isError}</span>}
     </>
   );
 };
