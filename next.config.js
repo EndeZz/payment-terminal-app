@@ -5,8 +5,9 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  loader: 'imgix',
   images: {
-    path: `./_next/image`,
+    disableStaticImages: false,
   },
 };
 
