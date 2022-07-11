@@ -51,6 +51,7 @@ const ButtonBack = styled(Button)`
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.primaryHover};
+    color: ${({ theme }) => theme.colors.primary};
   }
 
   &:active {

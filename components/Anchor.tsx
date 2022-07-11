@@ -17,7 +17,6 @@ const AnchorCustom = styled.a`
 
   &:disabled {
     opacity: 0.4;
-    /* pointer-events: none; */
     cursor: not-allowed;
   }
 `;
