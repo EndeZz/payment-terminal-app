@@ -5,6 +5,9 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  images: {
+    path: `./_next/image`,
+  },
 };
 
 module.exports = nextConfig;
