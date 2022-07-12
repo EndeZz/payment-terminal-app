@@ -18,6 +18,7 @@ import {
   Caption,
   CaptionError,
 } from './FormPayment.styled';
+import { useTimeout } from '../../hooks/useTimeout';
 
 const FormPayment: FC = () => {
   const router = useRouter();
@@ -34,15 +35,11 @@ const FormPayment: FC = () => {
     amount: '',
   });
 
-  useEffect(() => {
-    if (isSuccess) {
-      setTimeout(() => goBack(), 3000);
-    }
-  }, [isSuccess]);
-
   const goBack = useCallback(() => {
     router.push('/');
   }, [router]);
+
+  useTimeout(isSuccess, isShow, goBack, 3000);
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const targetValue = e.target.name;

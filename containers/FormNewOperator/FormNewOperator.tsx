@@ -3,6 +3,7 @@ import { FC, useCallback, useEffect, useState } from 'react';
 import FormGroup from '../../components/FormGroup';
 import InputField from '../../components/InputField';
 import { useOutside } from '../../hooks/useOutside';
+import { useTimeout } from '../../hooks/useTimeout';
 import { IFormNewOperatorValues } from '../../utils/types/IForms';
 import { CaptionError } from '../FormPayment/FormPayment.styled';
 import SuccessBox from '../SuccessBox/SuccessBox';
@@ -21,15 +22,11 @@ const FormNewOperator: FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
 
-  useEffect(() => {
-    if (isSuccess) {
-      setTimeout(() => goBack(), 3000);
-    }
-  }, [isSuccess]);
-
   const goBack = useCallback(() => {
     router.push('/');
   }, [router]);
+
+  useTimeout(isSuccess, isShow, goBack, 3000);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
