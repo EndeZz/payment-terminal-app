@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import FormGroup from '../../components/FormGroup';
 import InputField from '../../components/InputField';
 import InputMasked from '../../components/InputMasked';
@@ -131,8 +131,8 @@ const FormPayment: FC = () => {
       </InputField>
 
       <InputMasked
-        mask="+7\(999) 999-99-99"
-        maskChar=" "
+        mask="+7 (999) 999-99-99"
+        maskChar={null}
         type="text"
         name="phoneNumber"
         value={formValues.phoneNumber}

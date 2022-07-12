@@ -11,8 +11,8 @@ export const formValidation = (value: IFormPaymentValues) => {
     errors.amount = 'Поле обязательно для заполнения';
   } else if (
     String(correctAmount).length > 4 ||
-    +correctAmount > 1000 ||
-    +correctAmount <= 0
+    correctAmount > 1000 ||
+    correctAmount <= 0
   ) {
     errors.amount = 'Допустимо пополнение на сумму от 1 до 1000 ₽';
   } else if (isNaN(correctAmount)) {
@@ -21,6 +21,8 @@ export const formValidation = (value: IFormPaymentValues) => {
 
   if (!value.phoneNumber.length) {
     errors.phoneNumber = 'Поле обязательно для заполнения';
+  } else if (value.phoneNumber.length !== 18) {
+    errors.phoneNumber = 'Введите полный номер телефона';
   }
   return errors;
 };

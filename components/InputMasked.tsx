@@ -36,7 +36,6 @@ interface InputMaskedProps {
   value: string | number;
   mask: string;
   maskChar?: string;
-  size?: number;
   label?: string;
   children?: React.ReactNode;
 }
@@ -55,12 +54,12 @@ const InputMasked: FC<
     {label ? (
       <Label>
         <span>{label}</span>
-        <Input value={value} mask={mask} {...attrs} />
+        <Input value={value} mask={mask} maskChar={maskChar} {...attrs} />
         {children}
       </Label>
     ) : (
       <>
-        <Input value={value} mask={mask} {...attrs} />
+        <Input value={value} mask={mask} maskChar={maskChar} {...attrs} />
         {children}
       </>
     )}
