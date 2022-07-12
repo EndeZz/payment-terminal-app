@@ -19,6 +19,8 @@ import {
   CaptionError,
 } from './FormPayment.styled';
 import { useTimeout } from '../../hooks/useTimeout';
+import { goBack } from '../../utils/goBack';
+import { sendPayment } from '../../utils/api/apiRequests';
 
 const FormPayment: FC = () => {
   const router = useRouter();
@@ -35,11 +37,7 @@ const FormPayment: FC = () => {
     amount: '',
   });
 
-  const goBack = useCallback(() => {
-    router.push('/');
-  }, [router]);
-
-  useTimeout(isSuccess, isShow, goBack, 3000);
+  useTimeout(isSuccess, isShow, () => goBack(router), 3000);
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const targetValue = e.target.name;
@@ -84,7 +82,7 @@ const FormPayment: FC = () => {
         })
       );
 
-      const config = {
+      const config: RequestInit = {
         method: 'POST',
         body: JSON.stringify({
           phoneNumber: formValues.phoneNumber,
@@ -97,7 +95,7 @@ const FormPayment: FC = () => {
 
       if (JSON.stringify(formErrors) === '{}') {
         try {
-          await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/payment`, config);
+          await sendPayment(config);
           setIsShow(true);
           setIsSuccess(true);
           setErrorMessage(null);
@@ -152,7 +150,7 @@ const FormPayment: FC = () => {
       </InputMasked>
 
       <ButtonWrapper>
-        <ButtonBack type="button" onClick={goBack}>
+        <ButtonBack type="button" onClick={() => goBack(router)}>
           Назад
         </ButtonBack>
         <ButtonSubmit type="submit">Пополнить баланс</ButtonSubmit>

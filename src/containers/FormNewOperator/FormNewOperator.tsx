@@ -4,6 +4,8 @@ import FormGroup from '../../components/FormGroup';
 import InputField from '../../components/InputField';
 import { useOutside } from '../../hooks/useOutside';
 import { useTimeout } from '../../hooks/useTimeout';
+import { createOperator } from '../../utils/api/apiRequests';
+import { goBack } from '../../utils/goBack';
 import { IFormNewOperatorValues } from '../../utils/types/IForms';
 import { CaptionError } from '../FormPayment/FormPayment.styled';
 import SuccessBox from '../SuccessBox/SuccessBox';
@@ -22,11 +24,7 @@ const FormNewOperator: FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
 
-  const goBack = useCallback(() => {
-    router.push('/');
-  }, [router]);
-
-  useTimeout(isSuccess, isShow, goBack, 3000);
+  useTimeout(isSuccess, isShow, () => goBack(router), 3000);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +40,7 @@ const FormNewOperator: FC = () => {
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      const config = {
+      const config: RequestInit = {
         method: 'POST',
         body: JSON.stringify({
           title: formValues.title,
@@ -55,10 +53,7 @@ const FormNewOperator: FC = () => {
 
       if (JSON.stringify(formValues) !== '{}') {
         try {
-          await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/operators`,
-            config
-          );
+          await createOperator(config);
           setIsShow(true);
           setIsSuccess(true);
           setErrorMessage(null);
@@ -85,7 +80,7 @@ const FormNewOperator: FC = () => {
           label="Введите оператора"
         />
         <ButtonWrapper>
-          <ButtonBack type="button" onClick={goBack}>
+          <ButtonBack type="button" onClick={() => goBack(router)}>
             Назад
           </ButtonBack>
           <ButtonSubmit type="submit">Добавить оператора</ButtonSubmit>

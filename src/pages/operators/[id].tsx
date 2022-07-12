@@ -79,9 +79,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = (context) => {
   try {
     const { id } = context.params;
-    const fetchData = getOperatorById(+id);
+    const operator = getOperatorById(+id);
 
-    if (!fetchData) {
+    if (!operator) {
       return {
         notFound: true,
       };
@@ -89,7 +89,7 @@ export const getStaticProps: GetStaticProps = (context) => {
 
     return {
       props: {
-        operator: fetchData,
+        operator,
       },
     };
   } catch (e) {

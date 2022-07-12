@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Anchor from '../components/Anchor';
 import { Container, Main } from '../components/sharedstyles';
 import Board from '../containers/Board/Board';
+import { fetchOperators } from '../utils/api/apiRequests';
 import { IOperators } from '../utils/types/IOperators';
 
 const ButtonAdd = styled(Anchor)`
@@ -61,12 +62,9 @@ const Home: FC<OperatorsProps> = ({ operators }) => (
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const fetchRes = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/operators`
-    );
-    const fetchData = await fetchRes.json();
+    const operators = await fetchOperators();
 
-    if (!fetchData) {
+    if (!operators) {
       return {
         notFound: true,
       };
@@ -74,7 +72,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
     return {
       props: {
-        operators: fetchData,
+        operators,
       },
     };
   } catch (e) {
