@@ -1,0 +1,1 @@
+export { FormPayment } from './FormPayment';

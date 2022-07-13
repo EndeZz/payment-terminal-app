@@ -15,7 +15,7 @@ interface BoardProps {
   operators: IOperators[];
 }
 
-const Board: FC<BoardProps> = ({ operators }) => (
+export const Board: FC<BoardProps> = ({ operators }) => (
   <BoardWrapper>
     <BoardList>
       {operators &&

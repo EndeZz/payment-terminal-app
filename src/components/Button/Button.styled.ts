@@ -1,5 +1,3 @@
-import { FC } from 'react';
-
 import styled from 'styled-components';
 
 const ButtonCustom = styled.button`
@@ -21,19 +19,4 @@ const ButtonCustom = styled.button`
   }
 `;
 
-interface ButtonProps {
-  children: React.ReactNode;
-  type?: string;
-}
-
-const Button: FC<ButtonProps &  React.ButtonHTMLAttributes<HTMLButtonElement>> = ({
-  children,
-  ...attrs
-}) => (
-  <ButtonCustom {...attrs}>
-    {children}
-  </ButtonCustom>
-)
-
-
-export default Button;
+export { ButtonCustom };

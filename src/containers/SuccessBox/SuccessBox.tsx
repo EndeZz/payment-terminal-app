@@ -11,7 +11,7 @@ interface SuccessBoxProps {
   caption?: string;
 }
 
-const SuccessBox: FC<SuccessBoxProps> = ({
+export const SuccessBox: FC<SuccessBoxProps> = ({
   propsRef,
   title,
   caption,
@@ -23,5 +23,3 @@ const SuccessBox: FC<SuccessBoxProps> = ({
     </SuccessBoxWrapper>
   </>
 );
-
-export default SuccessBox;

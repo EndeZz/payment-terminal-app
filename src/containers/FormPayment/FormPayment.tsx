@@ -1,11 +1,10 @@
 import { useRouter } from 'next/router';
 import { FC, useCallback, useState } from 'react';
-import FormGroup from '../../components/FormGroup';
-import InputField from '../../components/InputField';
-import InputMasked from '../../components/InputMasked';
+import { Form } from '../../components/Form';
+import { InputField, InputMasked } from '../../components/Input';
 import { useOutside } from '../../hooks/useOutside';
 import { formValidation } from '../../utils/formValidation';
-import SuccessBox from '../SuccessBox/SuccessBox';
+import { SuccessBox } from '../SuccessBox';
 import {
   IFormPaymentValues,
   IFormPaymentDirtyValues,
@@ -22,7 +21,7 @@ import { useTimeout } from '../../hooks/useTimeout';
 import { goBack } from '../../utils/goBack';
 import { sendPayment } from '../../utils/api/apiRequests';
 
-const FormPayment: FC = () => {
+export const FormPayment: FC = () => {
   const router = useRouter();
   const { ref, isShow, setIsShow } = useOutside(false);
   const [formErrors, setFormErrors] = useState<IFormErrors>({});
@@ -110,7 +109,7 @@ const FormPayment: FC = () => {
   );
 
   return (
-    <FormGroup onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <InputField
         type="text"
         name="amount"
@@ -165,8 +164,6 @@ const FormPayment: FC = () => {
       )}
 
       {errorMessage && <CaptionError>{errorMessage}</CaptionError>}
-    </FormGroup>
+    </Form>
   );
 };
-
-export default FormPayment;

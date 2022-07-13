@@ -1,21 +1,21 @@
 import { useRouter } from 'next/router';
-import { FC, useCallback, useEffect, useState } from 'react';
-import FormGroup from '../../components/FormGroup';
-import InputField from '../../components/InputField';
+import { FC, useCallback, useState } from 'react';
+import { Form } from '../../components/Form';
+import { InputField } from '../../components/Input';
 import { useOutside } from '../../hooks/useOutside';
 import { useTimeout } from '../../hooks/useTimeout';
 import { createOperator } from '../../utils/api/apiRequests';
 import { goBack } from '../../utils/goBack';
 import { IFormNewOperatorValues } from '../../utils/types/IForms';
 import { CaptionError } from '../FormPayment/FormPayment.styled';
-import SuccessBox from '../SuccessBox/SuccessBox';
+import { SuccessBox } from '../SuccessBox';
 import {
   ButtonBack,
   ButtonSubmit,
   ButtonWrapper,
 } from './FormNewOperator.styled';
 
-const FormNewOperator: FC = () => {
+export const FormNewOperator: FC = () => {
   const router = useRouter();
   const { ref, isShow, setIsShow } = useOutside(false);
   const [formValues, setFormValues] = useState<IFormNewOperatorValues>({
@@ -69,7 +69,7 @@ const FormNewOperator: FC = () => {
 
   return (
     <>
-      <FormGroup onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <InputField
           type="text"
           name="title"
@@ -95,9 +95,7 @@ const FormNewOperator: FC = () => {
         )}
 
         {errorMessage && <CaptionError>{errorMessage}</CaptionError>}
-      </FormGroup>
+      </Form>
     </>
   );
 };
-
-export default FormNewOperator;

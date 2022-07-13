@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import { FC } from 'react';
 import styled from 'styled-components';
-import Anchor from '../components/Anchor';
-import { Container, Main } from '../components/sharedstyles';
+import { Anchor } from '../components/Anchor';
+import { Container, Main } from '../styles/sharedstyles';
 
 const Wrapper = styled.div`
   display: flex;

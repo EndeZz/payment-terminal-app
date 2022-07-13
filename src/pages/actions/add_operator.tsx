@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { FC } from 'react';
-import { Container, Main } from '../../components/sharedstyles';
-import FormNewOperator from '../../containers/FormNewOperator/FormNewOperator';
+import { Container, Main } from '../../styles/sharedstyles';
+import { FormNewOperator } from '../../containers/FormNewOperator';
 
 const NewOperator: FC = () => {
   return (

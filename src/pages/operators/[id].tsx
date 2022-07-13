@@ -1,10 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { FC } from 'react';
 import styled from 'styled-components';
-import { Container, Main } from '../../components/sharedstyles';
-import FormPayment from '../../containers/FormPayment/FormPayment';
+import { FC } from 'react';
+import { Container, Main } from '../../styles/sharedstyles';
+import { FormPayment } from '../../containers/FormPayment';
 import { mocks } from '../../mocks/mocks';
 import { getOperatorById } from '../../utils/getOperatorById';
 import { IOperators } from '../../utils/types/IOperators';

@@ -1,12 +1,13 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { FC } from 'react';
 import styled from 'styled-components';
-import Anchor from '../components/Anchor';
-import { Container, Main } from '../components/sharedstyles';
-import Board from '../containers/Board/Board';
+import { FC } from 'react';
+import { Anchor } from '../components/Anchor';
+
+import { Board } from '../containers/Board';
 import { fetchOperators } from '../utils/api/apiRequests';
 import { IOperators } from '../utils/types/IOperators';
+import { Container, Main } from '../styles/sharedstyles';
 
 const ButtonAdd = styled(Anchor)`
   border-radius: 25px;
